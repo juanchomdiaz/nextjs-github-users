@@ -1,9 +1,12 @@
-.navbar-brand .logo {
+.navbarBrand .navbarLogo {
     display: inline-flex;
+    margin-right: 10px;
 }
 
-
-.navbar-brand .brand-name {
+.navbarBrand .brandName {
     display: inline-flex;
     vertical-align: middle;
+    font-family: 'Work Sans';
+    font-size: 22px;
+    font-weight: bold;
 }
