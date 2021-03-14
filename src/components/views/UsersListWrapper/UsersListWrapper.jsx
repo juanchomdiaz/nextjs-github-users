@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Row, Col } from "react-bootstrap";
 
 import UsersList from "@components/views/UsersList";
-import UsersListPager from "@components/view/users/UsersListPager";
+import UsersListPager from "@components/views/UsersListPager";
 
 const UsersListWrapper = () => {
   return (

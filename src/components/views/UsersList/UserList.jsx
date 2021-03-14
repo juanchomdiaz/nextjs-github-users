@@ -1,8 +1,8 @@
 import { useContext, Fragment } from 'react';
 
-import UsersContext from '@contexts/users/UsersContext';
+import UsersContext from '@context/users/UsersContext';
 
-import UserCard from '@components/users/UserCard';
+import UserCard from '@components/views/UserCard';
 
 const UsersList = () => {
   const { users } = useContext(UsersContext);

@@ -3,11 +3,7 @@ import Head from 'next/head';
 import UsersState from '@context/users/UsersState';
 import UsersListWrapper from '@components/views/UsersListWrapper';
 
-import getConfig from 'next/config';
-
-const {
-  publicRuntimeConfig: { firstPageUrl, userPerPage },
-} = getConfig();
+import githubapiService from '@services/githubapi';
 
 export default function Main({ users }) {
   return (
@@ -23,7 +19,7 @@ export default function Main({ users }) {
 }
 
 export const getServerSideProps = async () => {
-  const users = await githubapiService.getUsers(firstPageUrl, userPerPage);
+  const users = await githubapiService.getUsers();
 
   return {
     props: {

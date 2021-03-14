@@ -14,17 +14,14 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig: { userPerPage } } = getConfig();
 
-const UsersState = ({ usersCount, users, children }) => {
+const UsersState = ({ users, children }) => {
   const initialState = {
     withError: false,
     isReady: true,
     users: users,
     currentUser: null,
-    usersCount: usersCount,
     nextUrl: '',
     prevUrl: '',
-    firstUrl: '',
-    lastUrl: '',
     canNext: true,
     canPrevious: false
   };
@@ -44,8 +41,6 @@ const UsersState = ({ usersCount, users, children }) => {
         users, 
         nextUrl,
         prevUrl, 
-        lastUrl, 
-        firstUrl,
         withError,
         canNext: (nextUrl !== ''),
         canPrevious: (prevUrl !== '')

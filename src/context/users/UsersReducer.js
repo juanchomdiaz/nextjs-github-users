@@ -16,8 +16,6 @@ import {
           users: action.payload.users, 
           nextUrl: action.payload.nextUrl,
           prevUrl: action.payload.prevUrl, 
-          lastUrl: action.payload.lastUrl, 
-          firstUrl: action.payload.firstUrl,
           withError: action.payload.withError,
           canNext: action.payload.canNext,
           canPrevious: action.payload.canPrevious
