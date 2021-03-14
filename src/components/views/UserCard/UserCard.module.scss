@@ -6,7 +6,7 @@
     padding: 20px;
   
     .cardImgWrapper {
-      height: 350px;
+      height: 250px;
       width: auto;
       text-align: center;
   
@@ -22,7 +22,9 @@
         vertical-align: middle;
   
         .cardImg {
-          max-height: 250px;
+          max-width: 200px;
+          min-width: 200px;
+          height: auto;
         }
       }
     }
@@ -32,6 +34,18 @@
       width: 100%;
       display: block;
       text-align: center;
+
+      .username {
+        font-size: 20px;
+        color: #111111;
+        font-weight: bold;
+      }
+
+      .profileLink {
+        text-decoration: none;
+        font-size: 16px;
+        color: #1b1a1a;
+      }
     }
   }
   

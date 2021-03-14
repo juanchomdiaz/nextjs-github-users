@@ -8,7 +8,7 @@ const {
   publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, userPerPage },
 } = getConfig();
 
-//API calls to github relies on this service. This could be improved in future implementing octokit.
+/* API calls to github relies on this service. This could be improved in future implementing octokit. */
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header

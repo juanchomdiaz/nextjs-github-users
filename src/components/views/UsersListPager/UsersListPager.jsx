@@ -4,6 +4,8 @@ import UsersContext from '@context/users/UsersContext';
 
 import { Button, Row, Col } from "react-bootstrap";
 
+import styles from './UsersListPager.module.scss';
+
 const UsersListPager = () => {
     const {
         isReady,
@@ -27,7 +29,7 @@ const UsersListPager = () => {
               <Col lg={{ span: 10, offset: 1 }} md={12}>
                 <Button
                   variant="dark"
-                  className="float-left"
+                  className={`float-left ${styles.pagerBtn}`}
                   disabled={!canPrevious || !isReady}
                   onClick={() => handlePreviousClick()}
                 >
@@ -36,7 +38,7 @@ const UsersListPager = () => {
     
                 <Button
                   variant="dark"
-                  className="float-right"
+                  className={`float-right ${styles.pagerBtn}`}
                   disabled={!canNext || !isReady}
                   onClick={() => handleNextClick()}
                 >
