@@ -6,44 +6,65 @@ import UsersReducer from "./UsersReducer";
 import {
   LOAD_USERS_START,
   LOAD_USERS_READY,
+  FETCH_NEXT_CLICKED,
+  FETCH_PREVIOUS_CLICKED
 } from "./UsersTypes";
 
 import githubapiService from '@services/githubapi';
 
-import getConfig from 'next/config';
-
-const { publicRuntimeConfig: { userPerPage } } = getConfig();
-
-const UsersState = ({ users, children }) => {
+const UsersState = ({ users, nextUrl, currentUrl, withError, children }) => {
   const initialState = {
-    withError: false,
+    withError: withError,
     isReady: true,
     users: users,
-    currentUser: null,
-    nextUrl: '',
-    prevUrl: '',
-    canNext: true,
-    canPrevious: false
+    nextUrl: nextUrl,
+    previousUrlsStack: [], 
+    currentUrl: currentUrl
   };
 
   const [state, dispatch] = useReducer(UsersReducer, initialState);
 
-  const loadUsers = async (url) => {
+  const fetchNext = () => {
+    let newPreviousUrlsStack = [...state.previousUrlsStack, state.currentUrl];
+    
+    dispatch({
+        type: FETCH_NEXT_CLICKED,
+        payload: {
+            newPreviousUrlsStack
+        }
+    });
+
+    _loadUsers(state.nextUrl);
+  };
+
+  const fetchPrevious = () => {
+    let newPreviousUrlsStack = [...state.previousUrlsStack];
+    let prevUrl = newPreviousUrlsStack.pop();
+
+    dispatch({
+        type: FETCH_PREVIOUS_CLICKED,
+        payload: {
+            newPreviousUrlsStack
+        }
+    });
+
+    _loadUsers(prevUrl);
+  };
+
+  const _loadUsers = async (url) => {
     dispatch({
       type: LOAD_USERS_START,
     });
 
-    let {users, nextUrl, prevUrl, lastUrl, firstUrl, withError} = await githubapiService.getUsers(url, userPerPage);
+    let {users, nextUrl, currentUrl, withError} = await githubapiService.getUsers(url);
 
     dispatch({
       type: LOAD_USERS_READY,
       payload: {
         users, 
         nextUrl,
-        prevUrl, 
-        withError,
-        canNext: (nextUrl !== ''),
-        canPrevious: (prevUrl !== '')
+        currentUrl, 
+        withError
       },
     });
   }
@@ -54,9 +75,10 @@ const UsersState = ({ users, children }) => {
         withError: state.withError,
         isReady: state.isReady,
         users: state.users,
-        canPrevious: state.canPrevious,
-        canNext: state.canNext,
-        loadUsers
+        canPrevious: (state.previousUrlsStack.length !== 0),
+        canNext: (state.nextUrl !== ''),
+        fetchNext,
+        fetchPrevious
       }}
     >
       {children}

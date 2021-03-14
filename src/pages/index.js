@@ -5,13 +5,13 @@ import UsersListWrapper from '@components/views/UsersListWrapper';
 
 import githubapiService from '@services/githubapi';
 
-export default function Main({ users }) {
+export default function Main({ users, nextUrl, currentUrl, withError }) {
   return (
     <>
       <Head>
         <title>Github's Users Browser</title>
       </Head>
-      <UsersState users={users}>
+      <UsersState users={users} nextUrl={nextUrl} currentUrl={currentUrl} withError={withError}>
         <UsersListWrapper />
       </UsersState>
     </>
@@ -19,11 +19,14 @@ export default function Main({ users }) {
 }
 
 export const getServerSideProps = async () => {
-  const users = await githubapiService.getUsers();
+  const { users, nextUrl, currentUrl, withError } = await githubapiService.getUsers();
 
   return {
     props: {
       users,
+      nextUrl,
+      currentUrl,
+      withError
     },
   };
 };

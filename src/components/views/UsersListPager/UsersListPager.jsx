@@ -1,7 +1,53 @@
-import React from 'react'
+import { useContext } from 'react'
+
+import UsersContext from '@context/users/UsersContext';
+
+import { Button, Row, Col } from "react-bootstrap";
 
 const UsersListPager = () => {
-    return (  <></> );
+    const {
+        isReady,
+        canPrevious,
+        canNext,
+        fetchPrevious,
+        fetchNext,
+      }  = useContext(UsersContext);
+    
+      const handlePreviousClick = () => {
+        fetchPrevious();
+      };
+    
+      const handleNextClick = () => {
+        fetchNext();
+      };
+    
+      return (
+        <>
+          {isReady && (
+            <Row className="mb-4">
+              <Col lg={{ span: 10, offset: 1 }} md={12}>
+                <Button
+                  variant="dark"
+                  className="float-left"
+                  disabled={!canPrevious}
+                  onClick={() => handlePreviousClick()}
+                >
+                  Previous
+                </Button>
+    
+                <Button
+                  variant="dark"
+                  className="float-right"
+                  disabled={!canNext}
+                  onClick={() => handleNextClick()}
+                >
+                  Next
+                </Button>
+              </Col>
+            </Row>
+          )}
+        </>
+      );
 }
  
 export default UsersListPager;
