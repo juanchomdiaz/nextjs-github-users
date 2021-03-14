@@ -23,13 +23,12 @@ const UsersListPager = () => {
     
       return (
         <>
-          {isReady && (
             <Row className="mb-4">
               <Col lg={{ span: 10, offset: 1 }} md={12}>
                 <Button
                   variant="dark"
                   className="float-left"
-                  disabled={!canPrevious}
+                  disabled={!canPrevious || !isReady}
                   onClick={() => handlePreviousClick()}
                 >
                   Previous
@@ -38,14 +37,13 @@ const UsersListPager = () => {
                 <Button
                   variant="dark"
                   className="float-right"
-                  disabled={!canNext}
+                  disabled={!canNext || !isReady}
                   onClick={() => handleNextClick()}
                 >
                   Next
                 </Button>
               </Col>
             </Row>
-          )}
         </>
       );
 }
