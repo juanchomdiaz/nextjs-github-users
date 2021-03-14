@@ -1,0 +1,26 @@
+.card {
+  max-height: fit-content;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  min-width: 250px;
+  padding: 20px 0;
+
+  .cardImgTop {
+    max-height: 250px;
+  }
+
+  .cardBody {
+    .jumbotron {
+      padding: 2rem 2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+    .cardBody {
+ 
+      .jumbotron {
+        padding: 1rem 1rem;
+      }
+    }
+}

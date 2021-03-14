@@ -1,17 +1,29 @@
-import axios from 'axios';
+/* API calls to github relies on this service. 
+This could be improved in future, for example implementing octokit
+or making the calls to a proxy in order to hide gitlab's auth token in browser. */
+
+import Axios from 'axios';
 
 import linkHeaderParser from 'parse-link-header';
 
 import getConfig from 'next/config';
 
 const {
-  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, userPerPage },
+  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, userPerPage, githubAuthToken },
 } = getConfig();
 
-/* API calls to github relies on this service. This could be improved in future implementing octokit. */
+// let reqCfg = {
+//   headers: {
+//     "Authorization": `Vtex ${vtexAuthCookie}`,
+//   },
+// };
+
+const axios = Axios.create({ headers: { Authorization: githubAuthToken } });
+
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
+
   getUsers: async (url = '') => {
     try {
       if (url === '') {
@@ -39,13 +51,31 @@ const githubapiService = {
         withError: false,
       };
     } catch (error) {
-      console.log(error);
       return {
         users: [],
         nextUrl: '',
         currentUrl: '',
         withError: true,
       };
+    }
+  },
+  getUserDetails: async (username = '') => {
+    try {
+      if (username === '') throw new Error();
+
+      let url = `${githubBaseApiURL}${usersEndpointBasePath}/${username}`;
+
+      const userResponse = await axios.get(url);
+
+      const userDetails = userResponse.data;
+
+      return {
+        userDetails,
+        withError: false,
+      };
+    } catch (error) {
+      console.log(error);
+      return { userDetails: {}, withError: true };
     }
   },
 };
