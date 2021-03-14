@@ -1,0 +1,38 @@
+.card {
+    width: auto;
+    margin: 0;
+    min-height: 350px;
+    max-height: 350px;
+    padding: 20px;
+  
+    .cardImgWrapper {
+      height: 350px;
+      width: auto;
+      text-align: center;
+  
+      &:before {      
+          content: ' ';
+          display: inline-block;
+          vertical-align: middle; 
+          height: 100%;
+      }
+  
+      .cardImgInner {
+        display: inline-block;
+        vertical-align: middle;
+  
+        .cardImg {
+          max-height: 250px;
+        }
+      }
+    }
+  
+    .cardNameWrapper {
+      bottom: 20px;
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+  
+  

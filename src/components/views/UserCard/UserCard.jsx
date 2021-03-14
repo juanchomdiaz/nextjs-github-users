@@ -8,15 +8,16 @@ import { Card, Fade, Image } from "react-bootstrap";
 
 import Skeleton from "react-loading-skeleton";
 
-import styles from "./UserCard.module.css";
+import styles from "./UserCard.module.scss";
 
 
 const UserCard = ({ user }) => {
+
   const { isReady } = useContext(UsersContext);
 
   return (
     <>
-      <Card className="shadow p-3 mb-5 bg-white rounded">
+      <Card className={`shadow p-3 mb-5 bg-white rounded ${styles.card}`}>
         <div className={styles.cardImgWrapper}>
           <div className={styles.cardImgInner}>
             {!(isReady) ? (

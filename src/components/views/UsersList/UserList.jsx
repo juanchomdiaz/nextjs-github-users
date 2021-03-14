@@ -4,13 +4,15 @@ import UsersContext from '@context/users/UsersContext';
 
 import UserCard from '@components/views/UserCard';
 
+import styles from './UserList.module.scss';
+
 const UsersList = () => {
   const { users } = useContext(UsersContext);
 
   return (
     <Fragment>
       {users.lenght !== 0 && (
-        <div className="card-grid">
+        <div className={styles.cardGrid}>
           {users.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
