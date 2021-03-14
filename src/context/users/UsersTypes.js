@@ -1,0 +1,2 @@
+export const LOAD_USERS_START = 'LOAD_USERS_START';
+export const LOAD_USERS_READY = 'LOAD_USERS_READY';
