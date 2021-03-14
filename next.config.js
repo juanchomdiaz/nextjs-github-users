@@ -5,4 +5,13 @@ module.exports = {
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page'
     },
+    async redirects() {
+      return [
+        {
+          source: '/',
+          destination: '/users',
+          permanent: false,
+        },
+      ];
+    },
 };

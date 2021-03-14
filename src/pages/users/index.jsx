@@ -5,7 +5,7 @@ import UsersListWrapper from '@components/views/UsersListWrapper';
 
 import githubapiService from '@services/githubapi';
 
-export default function Main({ users, nextUrl, currentUrl, withError }) {
+export default function UsersMain({ users, nextUrl, currentUrl, withError }) {
   return (
     <>
       <Head>
