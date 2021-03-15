@@ -8,7 +8,7 @@ const AppLayout = ({ children }) => {
   return (
     <Fragment>
       <Header />
-        <Container fluid className="mt-5">
+        <Container className="mt-5">
           {children}
         </Container>
     </Fragment>

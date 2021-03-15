@@ -1,26 +1,86 @@
-.card {
-  max-height: fit-content;
-  max-height: -webkit-fit-content;
-  max-height: -moz-fit-content;
-  min-width: 250px;
-  padding: 20px 0;
+.boxWidget {
+    border: none;
+    position: relative;
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 
-  .cardImgTop {
-    max-height: 250px;
-  }
+    .boxWidgetHeader {
+        padding: 20px;
+        height: 200px;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
 
-  .cardBody {
-    .jumbotron {
-      padding: 2rem 2rem;
+        .boxWidgetHeaderUsername {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 25px;
+            font-weight: 300;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            color:#fff;
+        }
     }
-  }
+
+    .boxWidgetImage {
+        position: absolute;
+        top: 65px;
+        left: 50%;
+        margin-left: -100px;
+
+        img {
+            width: 200px;
+            height: auto;
+            border: 3px solid #fff;
+        }
+    }
+
+    .boxFooter {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-top: 1px solid #f4f4f4;
+        padding: 70px 0 10px 10px;
+        background-color: #fff;
+
+        .border-right {
+            border-right: 1px solid #f4f4f4;
+        }
+
+        .statsWrapper {
+            display: block;
+            margin: 10px 0;
+            text-align: center;
+
+            .statHeader {
+                margin: 0;
+                padding: 0;
+                font-weight: 600;
+                font-size: 16px;
+            }
+
+            .statText {
+                text-transform: uppercase;
+            }
+        }
+
+        .buttonWrapper {
+            margin: 10px 0;
+        }
+    }
+
+    .bg {
+        background-color: #58869f  !important;
+    }
 }
 
-@media (max-width: 480px) {
-    .cardBody {
- 
-      .jumbotron {
-        padding: 1rem 1rem;
-      }
-    }
+
+
+.widget-user .widget-user-desc {
+    margin-top: 0;
+    color:#fff;
 }
