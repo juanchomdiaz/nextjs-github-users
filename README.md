@@ -2,7 +2,7 @@
 
 A multilanguage Github Users Browser made with NextJS 10, ReactJs 17, hooks, Context API, i18next, react-bootstrap, skeleton loading and jest + enzyme.
 
-See it running live in Heroku: 
+See it running live in Heroku: https://github-users-browser.herokuapp.com/users
 
 ### Before running
 Create a .env.local file using the .env.local.example file as the template. Create a Github Auth Token and set in your .env.local file.
