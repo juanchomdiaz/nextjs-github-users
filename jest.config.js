@@ -1,7 +1,13 @@
 module.exports = {
-    setupFiles: ['<rootDir>/src/tests/setupTest.js'],
-    testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-    moduleNameMapper: {
-        "\\.(scss|sass|css)$": "identity-obj-proxy"
-    }
-}
+  setupFiles: ['<rootDir>/src/tests/setupTest.js'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  roots: ['src'],
+  moduleDirectories: ["node_modules", "src"],
+  moduleNameMapper: {
+    '\\.(scss|sass|css)$': 'identity-obj-proxy',
+    "^@components(.*)$": "<rootDir>/src/components$1",
+    "^@context(.*)$": "<rootDir>/src/context$1",
+    "^@hooks(.*)$": "<rootDir>/src/hooks$1",
+    "^@helpers(.*)$": "<rootDir>/src/helpers$1",
+  },
+};
