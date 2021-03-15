@@ -2,6 +2,8 @@ import { Alert } from "react-bootstrap";
 
 import styles from './ErrorMessage.module.scss';
 
+import PropTypes from 'prop-types';
+
 import { useTranslation } from "react-i18next";
 
 const ErrorMessage = ({message=''}) => {
@@ -14,4 +16,9 @@ const ErrorMessage = ({message=''}) => {
      );
 }
  
+ErrorMessage.propTypes = {
+    message: PropTypes.string,
+};
+
+
 export default ErrorMessage;

@@ -7,6 +7,7 @@ import ErrorMessage from '@components/common/ErrorMessage/ErrorMessage';
 
 import githubapiService from '@services/githubapi';
 
+import PropTypes from 'prop-types';
 export default function UsersMain({ users, nextUrl, currentUrl, withError }) {
   return (
     <>
@@ -35,3 +36,11 @@ export const getServerSideProps = async () => {
     },
   };
 };
+
+UsersMain.propTypes = {
+    users: PropTypes.array.isRequired,
+    nextUrl: PropTypes.string.isRequired,
+    currentUrl: PropTypes.string.isRequired,
+    withError: PropTypes.bool.isRequired
+};
+

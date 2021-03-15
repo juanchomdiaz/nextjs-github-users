@@ -3,6 +3,7 @@ import githubapiService from '@services/githubapi';
 import UserDetails from '@components/views/UserDetails';
 import ErrorMessage from '@components/common/ErrorMessage/ErrorMessage';
 
+import PropTypes from 'prop-types';
 export default function UserDetailsPage({ userDetails, withError }) {
   return (
     <>
@@ -26,4 +27,9 @@ export const getServerSideProps = async ({ query }) => {
       withError,
     },
   };
+};
+
+UserDetailsPage.propTypes = {
+    userDetails: PropTypes.object.isRequired,
+    withError: PropTypes.bool.isRequired
 };

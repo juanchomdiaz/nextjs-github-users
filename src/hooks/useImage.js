@@ -1,5 +1,8 @@
 import { useState, useEffect} from 'react';
+
 import imageLoader from '@helpers/imageLoader';
+
+import PropTypes from 'prop-types';
 
 const useImage = ({src}) => {
     const [loaded, setLoaded] = useState(false);
@@ -28,6 +31,10 @@ const useImage = ({src}) => {
         image: image,
         isLoaded: loaded
     }
+};
+
+useImage.propTypes = {
+    src: PropTypes.string.isRequired,
 };
 
 export default useImage;

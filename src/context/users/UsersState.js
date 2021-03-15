@@ -12,6 +12,8 @@ import {
 
 import githubapiService from '@services/githubapi';
 
+import PropTypes from 'prop-types';
+
 const UsersState = ({ users, nextUrl, currentUrl, withError, children }) => {
   const initialState = {
     withError: withError,
@@ -85,5 +87,14 @@ const UsersState = ({ users, nextUrl, currentUrl, withError, children }) => {
     </UsersContext.Provider>
   );
 };
+
+UsersState.propTypes = {
+    users: PropTypes.array.isRequired,
+    nextUrl: PropTypes.string.isRequired,
+    currentUrl: PropTypes.string.isRequired,
+    withError: PropTypes.bool.isRequired,
+    children: PropTypes.node
+};
+
 
 export default UsersState;
