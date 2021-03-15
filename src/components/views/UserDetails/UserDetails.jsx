@@ -32,13 +32,7 @@ const UserDetails = ({ userDetails }) => {
             </div>
             <div className={styles.boxFooter}>
               <Row>
-                <Col sm={{ span: 3 }}>
-                  <div className={styles.statsWrapper}>
-                    <h5 className={styles.statHeader}>{userDetails.public_repos}</h5>
-                    <h5 className={styles.statText}>{t("public_repos")}</h5>
-                  </div>
-                </Col>
-                <Col sm={{ span: 3 }} className={styles.borderRight}>
+                <Col sm={{ span: 3, offset: 3 }} className={styles.borderRight}>
                   <div className={styles.statsWrapper}>
                     <h5 className={styles.statHeader}>{userDetails.followers}</h5>
                     <h5 className={styles.statText}>{t("followers")}</h5>
@@ -48,12 +42,6 @@ const UserDetails = ({ userDetails }) => {
                   <div className={styles.statsWrapper}>
                     <h5 className={styles.statHeader}>{userDetails.following}</h5>
                     <h5 className={styles.statText}>{t("following")}</h5>
-                  </div>
-                </Col>
-                <Col sm={{ span: 3 }}>
-                  <div className={styles.statsWrapper}>
-                    <h5 className={styles.statHeader}>{userDetails.public_gists}</h5>
-                    <h5 className={styles.statText}>{t("public_gists")}</h5>
                   </div>
                 </Col>
               </Row>
