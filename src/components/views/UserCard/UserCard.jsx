@@ -13,6 +13,8 @@ import Skeleton from 'react-loading-skeleton';
 
 import styles from './UserCard.module.scss';
 
+import { useTranslation } from "react-i18next";
+
 const UserCard = ({ user }) => {
   const { isReady } = useContext(UsersContext);
 
@@ -22,6 +24,8 @@ const UserCard = ({ user }) => {
   const handleVisitProfileBtnClick = (url) => {
     window.open(url, '_blank');
   };
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -65,7 +69,7 @@ const UserCard = ({ user }) => {
             onClick={() => handleVisitProfileBtnClick(user.html_url)}
             className="btn btn-secondary"
           >
-            Visit profile
+            {t("visit_profile")}
           </Button>
         )}
       </Card>

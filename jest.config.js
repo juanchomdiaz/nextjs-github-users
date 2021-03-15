@@ -9,5 +9,6 @@ module.exports = {
     "^@context(.*)$": "<rootDir>/src/context$1",
     "^@hooks(.*)$": "<rootDir>/src/hooks$1",
     "^@helpers(.*)$": "<rootDir>/src/helpers$1",
+    "^@i18n(.*)$": "<rootDir>/src/i18n$1",
   },
 };

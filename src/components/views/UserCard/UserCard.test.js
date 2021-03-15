@@ -27,7 +27,7 @@ describe("UserCard", () => {
     it(">>> Should render the card with the user picture", () => {
         const wrapper = renderUserCard(true, fakeUser);
         setTimeout(() => {
-          expect(wrapper.find(".card-img").exists()).toBeTruthy();
+          expect(wrapper.find(".rounded-circle").exists()).toBeTruthy();
         }, 3000)
       });
 
