@@ -32,8 +32,7 @@ const UsersListPager = () => {
             <Row className="mb-4">
               <Col lg={{ span: 10, offset: 1 }} md={12}>
                 <Button
-                  variant="dark"
-                  className={`float-left ${styles.pagerBtn}`}
+                  className={`btn btn-dark btn-lg float-left ${styles.pagerBtn}`}
                   disabled={!canPrevious || !isReady}
                   onClick={() => handlePreviousClick()}
                 >
@@ -41,8 +40,7 @@ const UsersListPager = () => {
                 </Button>
     
                 <Button
-                  variant="dark"
-                  className={`float-right ${styles.pagerBtn}`}
+                  className={`btn btn-dark btn-lg float-right ${styles.pagerBtn}`}
                   disabled={!canNext || !isReady}
                   onClick={() => handleNextClick()}
                 >

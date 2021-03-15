@@ -63,7 +63,7 @@ const UserCard = ({ user }) => {
         {(isReady && isLoaded) && (
           <Button
             onClick={() => handleVisitProfileBtnClick(user.html_url)}
-            className={styles.profileLink}
+            className="btn btn-secondary"
           >
             Visit profile
           </Button>

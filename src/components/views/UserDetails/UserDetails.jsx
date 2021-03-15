@@ -73,7 +73,7 @@ const UserDetails = ({ userDetails }) => {
           md={{ span: 4, offset: 4 }}
           className="d-flex justify-content-center"
         >
-          <Button onClick={() => router.back()}>Go Back</Button>
+          <Button className="btn btn-dark btn-lg" onClick={() => router.back()}>Go Back</Button>
         </Col>
       </Row>
     </>
