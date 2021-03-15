@@ -9,16 +9,14 @@ import githubapiService from '@services/githubapi';
 
 import PropTypes from 'prop-types';
 export default function UsersMain({ users, nextUrl, currentUrl, withError }) {
+
   return (
     <>
       <Head>
         <title>Github's Users Browser</title>
       </Head>
       <UsersState users={users} nextUrl={nextUrl} currentUrl={currentUrl} withError={withError}>
-         {withError ?
-          <ErrorMessage message="Ooops! An error has occurred retrieving data from Github API. Try again in a few minutes." />
-          : 
-          <UsersListWrapper />} 
+        {withError ? <ErrorMessage /> : <UsersListWrapper />}
       </UsersState>
     </>
   );
@@ -32,15 +30,14 @@ export const getServerSideProps = async () => {
       users,
       nextUrl,
       currentUrl,
-      withError
+      withError,
     },
   };
 };
 
 UsersMain.propTypes = {
-    users: PropTypes.array.isRequired,
-    nextUrl: PropTypes.string.isRequired,
-    currentUrl: PropTypes.string.isRequired,
-    withError: PropTypes.bool.isRequired
+  users: PropTypes.array.isRequired,
+  nextUrl: PropTypes.string.isRequired,
+  currentUrl: PropTypes.string.isRequired,
+  withError: PropTypes.bool.isRequired,
 };
-
