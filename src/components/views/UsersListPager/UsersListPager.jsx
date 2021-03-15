@@ -4,6 +4,8 @@ import UsersContext from '@context/users/UsersContext';
 
 import { Button, Row, Col } from "react-bootstrap";
 
+import { scrollToTop } from '@helpers/ui';
+
 import styles from './UsersListPager.module.scss';
 
 const UsersListPager = () => {
@@ -17,10 +19,12 @@ const UsersListPager = () => {
     
       const handlePreviousClick = () => {
         fetchPrevious();
+        scrollToTop();
       };
     
       const handleNextClick = () => {
         fetchNext();
+        scrollToTop();
       };
     
       return (
