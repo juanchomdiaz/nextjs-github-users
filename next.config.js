@@ -1,10 +1,16 @@
+const aws = require('aws-sdk');
+
+let s3 = new aws.S3({
+  githubAuthToken: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN,
+});
+
 module.exports = {
     publicRuntimeConfig: {
       githubBaseApiURL: 'https://api.github.com', /* I can read variables from process.env here. Useful in multiples environments. */
       userPerPage: 9,
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page',
-      githubAuthToken: '7731bcb3c2524823f855e235327766e2113cb76e' /* THIS IS UNSAFE. THIS MUST TO BE SAVED IN A SECRET */
+      githubAuthToken: s3.githubAuthToken /* THIS SAVED IN HEROKU ENV VAR */
     },
     async redirects() {
       return [

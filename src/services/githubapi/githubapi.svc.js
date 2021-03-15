@@ -1,6 +1,6 @@
 /* API calls to github relies on this service. 
 This could be improved in future, for example implementing octokit
-or making the calls to a proxy in order to hide gitlab's auth token in browser. */
+or making the calls to a proxy in order to hide gitlab's auth token in browser requests. */
 
 import Axios from 'axios';
 
@@ -12,13 +12,8 @@ const {
   publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, userPerPage, githubAuthToken },
 } = getConfig();
 
-// let reqCfg = {
-//   headers: {
-//     "Authorization": `Vtex ${vtexAuthCookie}`,
-//   },
-// };
-
-const axios = Axios.create({ headers: { Authorization: githubAuthToken } });
+/* THIS IS UNSAFE. GITHUB TOKEN WILL BE AVAILABLE IN BROWSER REQUEST */
+const axios = Axios.create({ headers: { Authorization: githubAuthToken } }); 
 
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
