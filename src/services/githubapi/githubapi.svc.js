@@ -15,6 +15,8 @@ const {
 /* THIS IS UNSAFE. GITHUB TOKEN WILL BE AVAILABLE IN BROWSER REQUEST */
 const axios = Axios.create({ headers: { Authorization: githubAuthToken } }); 
 
+console.log(githubAuthToken);
+
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
