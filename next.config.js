@@ -7,7 +7,7 @@ let s3 = new aws.S3({
 module.exports = {
     publicRuntimeConfig: {
       githubBaseApiURL: 'https://api.github.com',
-      userPerPage: 9,
+      usersPerPage: 9,
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page',
       githubAuthToken: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN || s3.githubAuthToken || ''

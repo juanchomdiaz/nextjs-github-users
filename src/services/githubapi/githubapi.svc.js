@@ -9,7 +9,7 @@ import linkHeaderParser from 'parse-link-header';
 import getConfig from 'next/config';
 
 const {
-  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, userPerPage, githubAuthToken },
+  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, usersPerPage, githubAuthToken },
 } = getConfig();
 
 /* THIS IS UNSAFE. GITHUB TOKEN WILL BE AVAILABLE IN BROWSER REQUEST */
@@ -23,7 +23,7 @@ const githubapiService = {
     try {
       if (url === '') {
         //Call to first page url, example: https://api.github.com/users?since=0&per_page=12
-        url = `${githubBaseApiURL}${usersEndpointBasePath}?since=0&${perPageParamName}=${userPerPage}`;
+        url = `${githubBaseApiURL}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
       }
 
       const usersResponse = await axios.get(url);
