@@ -1,6 +1,10 @@
-/* API calls to github relies on this service. 
-This could be improved in future, for example implementing octokit
-or making the calls to a proxy in order to hide github's auth token in browser requests. */
+/* 
+API calls to github relies on this service. 
+This "service" provides an unique API for fetching APP data.
+This could be easily improved in future, for example: implementing 
+octokit or making the calls to a custom proxy in order to inject 
+github's auth token in a server-side call and hide it in client-side requests. 
+*/
 
 import Axios from 'axios';
 
@@ -18,7 +22,6 @@ const axios = Axios.create({ headers: { Authorization: githubAuthToken } });
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
-
   getUsers: async (url = '') => {
     try {
       if (url === '') {
@@ -26,18 +29,18 @@ const githubapiService = {
         url = `${githubBaseApiURL}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
       }
 
-      const usersResponse = await axios.get(url);
+      let usersResponse = await axios.get(url);
 
-      const users = usersResponse.data;
+      let users = usersResponse.data;
 
-      const parsedLinkHeader =
+      let parsedLinkHeader =
         usersResponse.headers.link && linkHeaderParser(usersResponse.headers.link);
 
-      const nextUrl = parsedLinkHeader.next.url || '';
+      let nextUrl = parsedLinkHeader.next.url || '';
 
       /* For some reason, github's api is not returning a 
       previous url in link header, so I have to return current url*/
-      const currentUrl = url;
+      let currentUrl = url;
 
       return {
         users,
@@ -60,9 +63,9 @@ const githubapiService = {
 
       let url = `${githubBaseApiURL}${usersEndpointBasePath}/${username}`;
 
-      const userResponse = await axios.get(url);
+      let userResponse = await axios.get(url);
 
-      const userDetails = userResponse.data;
+      let userDetails = userResponse.data;
 
       return {
         userDetails,
