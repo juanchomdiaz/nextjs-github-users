@@ -36,7 +36,7 @@ const githubapiService = {
       let parsedLinkHeader =
         usersResponse.headers.link && linkHeaderParser(usersResponse.headers.link);
 
-      let nextUrl = parsedLinkHeader.next.url || '';
+      let nextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
 
       /* For some reason, github's api is not returning a 
       previous url in link header, so I have to return current url*/
