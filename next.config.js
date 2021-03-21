@@ -6,7 +6,7 @@ let s3 = new aws.S3({
 
 module.exports = {
     publicRuntimeConfig: {
-      githubBaseApiURL: 'https://api.github.com',
+      githubBaseApiURL: 'https://expressjs-reverse-proxy.herokuapp.com',
       usersPerPage: 9,
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page',
