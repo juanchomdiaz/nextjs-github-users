@@ -25,7 +25,7 @@ const githubapiService = {
   getUsers: async (url = '') => {
     try {
       if (url === '') {
-        //Call to first page url, example: https://api.github.com/users?since=0&per_page=12
+        //Call to first page url, example: https://api-or-proxy-url/users?since=0&per_page=12
         url = `${apiBaseUrl}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
       }
 
