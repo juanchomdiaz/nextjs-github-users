@@ -11,8 +11,10 @@ import linkHeaderParser from 'parse-link-header';
 
 import getConfig from 'next/config';
 
+import { replaceHostname } from '@helpers/url';
+
 const {
-  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, usersPerPage },
+  publicRuntimeConfig: { apiBaseUrl, usersEndpointBasePath, perPageParamName, usersPerPage },
 } = getConfig();
 
 const axios = Axios.create(); 
@@ -24,7 +26,7 @@ const githubapiService = {
     try {
       if (url === '') {
         //Call to first page url, example: https://api.github.com/users?since=0&per_page=12
-        url = `${githubBaseApiURL}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
+        url = `${apiBaseUrl}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
       }
 
       let usersResponse = await axios.get(url);
@@ -34,7 +36,9 @@ const githubapiService = {
       let parsedLinkHeader =
         usersResponse.headers.link && linkHeaderParser(usersResponse.headers.link);
 
-      let nextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
+      let responseNextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
+
+      let nextUrl = replaceHostname(responseNextUrl, apiBaseUrl);
 
       /* For some reason, github's api is not returning a 
       previous url in link header, so I have to return current url*/
@@ -47,6 +51,7 @@ const githubapiService = {
         withError: false,
       };
     } catch (error) {
+      console.log(error)
       return {
         users: [],
         nextUrl: '',
@@ -59,7 +64,7 @@ const githubapiService = {
     try {
       if (username === '') throw new Error();
 
-      let url = `${githubBaseApiURL}${usersEndpointBasePath}/${username}`;
+      let url = `${apiBaseUrl}${usersEndpointBasePath}/${username}`;
 
       let userResponse = await axios.get(url);
 
