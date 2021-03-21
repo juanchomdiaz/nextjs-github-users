@@ -2,8 +2,7 @@
 API calls to github relies on this service. 
 This "service" provides an unique API for fetching APP data.
 This could be easily improved in future, for example: implementing 
-octokit or making the calls to a custom proxy in order to inject 
-github's auth token in a server-side call and hide it in client-side requests. 
+octokit.
 */
 
 import Axios from 'axios';
@@ -13,11 +12,10 @@ import linkHeaderParser from 'parse-link-header';
 import getConfig from 'next/config';
 
 const {
-  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, usersPerPage, githubAuthToken },
+  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, usersPerPage },
 } = getConfig();
 
-/* THIS IS UNSAFE. GITHUB TOKEN WILL BE AVAILABLE IN BROWSER REQUEST */
-const axios = Axios.create({ headers: { Authorization: githubAuthToken } }); 
+const axios = Axios.create(); 
 
 const githubapiService = {
   //https://docs.github.com/en/rest/reference/users#list-users
