@@ -19,7 +19,7 @@ const useImage = ({src}) => {
             loadImage(src).then(
                 image => {
                     setImage(image);
-                    setLoaded(true)
+                    setLoaded(true);
                 }
             );
         } catch (error) {
