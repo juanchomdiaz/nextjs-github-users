@@ -5,13 +5,24 @@ function unbindEvents(image) {
   image.onabort = null;
 
   try {
-    //delete image.src;
+    delete image.src;
   } catch (e) {
     // Strict mode in safari error
   }
 }
 
-const imageLoader = (url, crossOrigin) => {
+function imgToBase64(img) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  ctx.drawImage(img, 0, 0);
+
+  return canvas.toDataURL();
+}
+
+const imageLoader = (url, crossOrigin="anonymous") => {
   const image = new Image();
 
   // Support cross origin requests
@@ -20,7 +31,7 @@ const imageLoader = (url, crossOrigin) => {
   return new Promise((resolve, reject) => {
     const loaded = (event) => {
       unbindEvents(image);
-      resolve(image);
+      resolve(imgToBase64(image));
     };
 
     const errored = (error) => {

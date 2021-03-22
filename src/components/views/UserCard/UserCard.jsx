@@ -19,6 +19,7 @@ const UserCard = ({ user }) => {
   const { isReady } = useContext(UsersContext);
 
   const imageSrc = user && user.avatar_url;
+
   const { image, isLoaded } = useImage({ src: imageSrc });
 
   const handleVisitProfileBtnClick = (url) => {
@@ -40,7 +41,7 @@ const UserCard = ({ user }) => {
                   <Fade timeour={500} appear={true} in={true}>
                     <Image
                       className={styles.cardImg}
-                      src={image.src}
+                      src={image}
                       alt={user && user.login}
                       roundedCircle
                     />
