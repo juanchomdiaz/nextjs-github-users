@@ -13,17 +13,31 @@ import getConfig from 'next/config';
 
 import { replaceHostname } from '@helpers/url';
 
-const {
-  publicRuntimeConfig: { apiBaseUrl, usersEndpointBasePath, perPageParamName, usersPerPage },
-} = getConfig();
+const githubapiService = (() => {
 
-const axios = Axios.create(); 
+  const {
+    publicRuntimeConfig: { apiBaseUrl, usersEndpointBasePath, perPageParamName, usersPerPage },
+  } = getConfig();
+  
+  const axios = Axios.create(); 
 
-const githubapiService = {
+  const parseNextPageLink = (linkHeader) => {
+    if(linkHeader === '') return '';
+
+    let parsedLinkHeader = linkHeaderParser(linkHeader);
+
+    let responseNextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
+
+    return replaceHostname(responseNextUrl, apiBaseUrl);
+  }
+
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
-  getUsers: async (url = '') => {
+  const getUsers = async (url = '') => {
     try {
+      //SSR workaround
+      if(typeof(apiBaseUrl) === 'undefined') apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
       if (url === '') {
         //Call to first page url, example: https://api-or-proxy-url/users?since=0&per_page=12
         url = `${apiBaseUrl}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
@@ -33,12 +47,7 @@ const githubapiService = {
 
       let users = usersResponse.data;
 
-      let parsedLinkHeader =
-        usersResponse.headers.link && linkHeaderParser(usersResponse.headers.link);
-
-      let responseNextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
-
-      let nextUrl = replaceHostname(responseNextUrl, apiBaseUrl);
+      let nextUrl = parseNextPageLink(usersResponse.headers.link || '');
 
       /* For some reason, github's api is not returning a 
       previous url in link header, so I have to return current url*/
@@ -58,8 +67,9 @@ const githubapiService = {
         withError: true,
       };
     }
-  },
-  getUserDetails: async (username = '') => {
+  };
+
+  const getUserDetails = async (username = '') => {
     try {
       if (username === '') throw new Error();
 
@@ -77,7 +87,12 @@ const githubapiService = {
       console.log(error);
       return { userDetails: {}, withError: true };
     }
-  },
-};
+  };
+
+  return {
+    getUsers,
+    getUserDetails
+  }
+})();
 
 export default githubapiService;

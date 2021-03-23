@@ -1,6 +1,6 @@
 module.exports = {
     publicRuntimeConfig: {
-      apiBaseUrl: 'https://expressjs-reverse-proxy.herokuapp.com',
+      apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
       usersPerPage: 9,
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page',

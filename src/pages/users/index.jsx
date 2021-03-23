@@ -8,7 +8,7 @@ import ErrorMessage from '@components/common/ErrorMessage/ErrorMessage';
 import githubapiService from '@services/githubapi';
 
 import PropTypes from 'prop-types';
-export default function UsersMain({ users, nextUrl, currentUrl, withError }) {
+function UsersMain({ users, nextUrl, currentUrl, withError }) {
 
   return (
     <>
@@ -22,16 +22,16 @@ export default function UsersMain({ users, nextUrl, currentUrl, withError }) {
   );
 }
 
-export const getServerSideProps = async () => {
+UsersMain.getInitialProps = async () => {
   const { users, nextUrl, currentUrl, withError } = await githubapiService.getUsers();
 
+  console.log(withError);
+
   return {
-    props: {
       users,
       nextUrl,
       currentUrl,
       withError,
-    },
   };
 };
 
@@ -41,3 +41,5 @@ UsersMain.propTypes = {
   currentUrl: PropTypes.string.isRequired,
   withError: PropTypes.bool.isRequired,
 };
+
+export default UsersMain;
