@@ -14,4 +14,16 @@ module.exports = {
         },
       ];
     },
+    async rewrites() {
+      return [
+        {
+          source: '/api/users',
+          destination: `${process.env.PROXY_BASE_URL}/users`
+        },
+        {
+          source: '/api/users/:username',
+          destination: `${process.env.PROXY_BASE_URL}/users/:username`, 
+        },
+      ]
+    },
 };

@@ -1,7 +1,11 @@
-export function replaceHostname(old, target) {
+export function replaceBaseApiUrl(old, targetApiUrl) {
     let newUrl = new URL(old);
-    let targetUrl = new URL(target);
-    newUrl.hostname = targetUrl.hostname;
+    let targetUrl = new URL(targetApiUrl);
+
     newUrl.protocol = targetUrl.protocol;
+    newUrl.hostname = targetUrl.hostname;
+    newUrl.port = targetUrl.port;
+    newUrl.pathname = targetUrl.pathname + newUrl.pathname;
+
     return newUrl.href;
 }

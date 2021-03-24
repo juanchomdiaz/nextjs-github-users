@@ -25,8 +25,6 @@ function UsersMain({ users, nextUrl, currentUrl, withError }) {
 UsersMain.getInitialProps = async () => {
   const { users, nextUrl, currentUrl, withError } = await githubapiService.getUsers();
 
-  console.log(withError);
-
   return {
       users,
       nextUrl,

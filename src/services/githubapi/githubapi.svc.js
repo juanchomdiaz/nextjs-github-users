@@ -11,14 +11,17 @@ import linkHeaderParser from 'parse-link-header';
 
 import getConfig from 'next/config';
 
-import { replaceHostname } from '@helpers/url';
+import { replaceBaseApiUrl } from '@helpers/url';
 
 const githubapiService = (() => {
 
-  const {
+  let {
     publicRuntimeConfig: { apiBaseUrl, usersEndpointBasePath, perPageParamName, usersPerPage },
   } = getConfig();
   
+  //SSR workaround
+  if(typeof(apiBaseUrl) === 'undefined') apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const axios = Axios.create(); 
 
   const parseNextPageLink = (linkHeader) => {
@@ -28,16 +31,13 @@ const githubapiService = (() => {
 
     let responseNextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
 
-    return replaceHostname(responseNextUrl, apiBaseUrl);
+    return replaceBaseApiUrl(responseNextUrl, apiBaseUrl);
   }
 
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
   const getUsers = async (url = '') => {
     try {
-      //SSR workaround
-      if(typeof(apiBaseUrl) === 'undefined') apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
       if (url === '') {
         //Call to first page url, example: https://api-or-proxy-url/users?since=0&per_page=12
         url = `${apiBaseUrl}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
@@ -60,6 +60,8 @@ const githubapiService = (() => {
         withError: false,
       };
     } catch (error) {
+      console.log(error);
+
       return {
         users: [],
         nextUrl: '',
@@ -84,7 +86,7 @@ const githubapiService = (() => {
         withError: false,
       };
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return { userDetails: {}, withError: true };
     }
   };
