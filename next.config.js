@@ -1,16 +1,16 @@
 const aws = require('aws-sdk');
 
 let s3 = new aws.S3({
-  githubAuthToken: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN, /* THIS IS SAVED IN HEROKU ENV VAR */
+  apiBaseUrl: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN,
+  proxyBaseUrl: process.env.PROXY_BASE_URL
 });
 
 module.exports = {
     publicRuntimeConfig: {
-      githubBaseApiURL: 'https://api.github.com',
+      apiBaseUrl: s3.apiBaseUrl || process.env.NEXT_PUBLIC_API_BASE_URL,
       usersPerPage: 9,
       usersEndpointBasePath: '/users',
       perPageParamName: 'per_page',
-      githubAuthToken: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN || s3.githubAuthToken || ''
     },
     async redirects() {
       return [
@@ -20,5 +20,17 @@ module.exports = {
           permanent: false,
         },
       ];
+    },
+    async rewrites() {
+      return [
+        {
+          source: '/api/users',
+          destination: `${s3.proxyBaseUrl || process.env.PROXY_BASE_URL}/users`
+        },
+        {
+          source: '/api/users/:username',
+          destination: `${s3.proxyBaseUrl || process.env.PROXY_BASE_URL}/users/:username`, 
+        },
+      ]
     },
 };

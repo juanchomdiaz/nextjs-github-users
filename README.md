@@ -4,12 +4,9 @@ A multilanguage Github Users Browser made with NextJS 10, ReactJs 17, hooks, Con
 
 See it running live in Heroku: https://github-users-browser.herokuapp.com/users
 
-CHECK THIS PR: https://github.com/juanchomdiaz/nextjs-github-users/pull/1
+Now using a reverse proxy.
 
-### Before running
-Create a .env.local file using the .env.local.example file as the template. Create a Github Auth Token and set in your .env.local file.
-Documentation about creating a github token [is here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-### How to run?
+## How to run?
 
 - npm install
 
