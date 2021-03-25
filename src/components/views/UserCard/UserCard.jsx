@@ -29,7 +29,6 @@ const UserCard = ({ user }) => {
   const { t } = useTranslation();
 
   return (
-    <>
       <Card className={`shadow p-3 mb-5 bg-white rounded ${styles.card}`}>
         <Link href={`/users/${user.login}`}>
           <a>
@@ -74,7 +73,6 @@ const UserCard = ({ user }) => {
           </Button>
         )}
       </Card>
-    </>
   );
 };
 

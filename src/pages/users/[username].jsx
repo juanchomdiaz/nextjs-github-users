@@ -1,7 +1,7 @@
 import githubapiService from '@services/githubapi';
 
 import UserDetails from '@components/views/UserDetails';
-import ErrorMessage from '@components/common/ErrorMessage/ErrorMessage';
+import ErrorMessage from '@components/common/ErrorMessage';
 
 import PropTypes from 'prop-types';
 export default function UserDetailsPage({ userDetails, withError }) {

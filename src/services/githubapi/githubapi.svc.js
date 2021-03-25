@@ -2,8 +2,7 @@
 API calls to github relies on this service. 
 This "service" provides an unique API for fetching APP data.
 This could be easily improved in future, for example: implementing 
-octokit or making the calls to a custom proxy in order to inject 
-github's auth token in a server-side call and hide it in client-side requests. 
+octokit.
 */
 
 import Axios from 'axios';
@@ -12,31 +11,43 @@ import linkHeaderParser from 'parse-link-header';
 
 import getConfig from 'next/config';
 
-const {
-  publicRuntimeConfig: { githubBaseApiURL, usersEndpointBasePath, perPageParamName, usersPerPage, githubAuthToken },
-} = getConfig();
+import { replaceBaseApiUrl } from '@helpers/url';
 
-/* THIS IS UNSAFE. GITHUB TOKEN WILL BE AVAILABLE IN BROWSER REQUEST */
-const axios = Axios.create({ headers: { Authorization: githubAuthToken } }); 
+const githubapiService = (() => {
 
-const githubapiService = {
+  let {
+    publicRuntimeConfig: { apiBaseUrl, usersEndpointBasePath, perPageParamName, usersPerPage },
+  } = getConfig();
+  
+  //SSR workaround
+  if(typeof(apiBaseUrl) === 'undefined') apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  const axios = Axios.create(); 
+
+  const parseNextPageLink = (linkHeader) => {
+    if(linkHeader === '') return '';
+
+    let parsedLinkHeader = linkHeaderParser(linkHeader);
+
+    let responseNextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
+
+    return replaceBaseApiUrl(responseNextUrl, apiBaseUrl);
+  }
+
   //https://docs.github.com/en/rest/reference/users#list-users
   //https://docs.github.com/en/rest/overview/resources-in-the-rest-api#link-header
-  getUsers: async (url = '') => {
+  const getUsers = async (url = '') => {
     try {
       if (url === '') {
-        //Call to first page url, example: https://api.github.com/users?since=0&per_page=12
-        url = `${githubBaseApiURL}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
+        //Call to first page url, example: https://api-or-proxy-url/users?since=0&per_page=12
+        url = `${apiBaseUrl}${usersEndpointBasePath}?since=0&${perPageParamName}=${usersPerPage}`;
       }
 
       let usersResponse = await axios.get(url);
 
       let users = usersResponse.data;
 
-      let parsedLinkHeader =
-        usersResponse.headers.link && linkHeaderParser(usersResponse.headers.link);
-
-      let nextUrl = (parsedLinkHeader.next && parsedLinkHeader.next.url) || '';
+      let nextUrl = parseNextPageLink(usersResponse.headers.link || '');
 
       /* For some reason, github's api is not returning a 
       previous url in link header, so I have to return current url*/
@@ -49,6 +60,8 @@ const githubapiService = {
         withError: false,
       };
     } catch (error) {
+      console.log(error);
+
       return {
         users: [],
         nextUrl: '',
@@ -56,12 +69,13 @@ const githubapiService = {
         withError: true,
       };
     }
-  },
-  getUserDetails: async (username = '') => {
+  };
+
+  const getUserDetails = async (username = '') => {
     try {
       if (username === '') throw new Error();
 
-      let url = `${githubBaseApiURL}${usersEndpointBasePath}/${username}`;
+      let url = `${apiBaseUrl}${usersEndpointBasePath}/${username}`;
 
       let userResponse = await axios.get(url);
 
@@ -72,10 +86,15 @@ const githubapiService = {
         withError: false,
       };
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return { userDetails: {}, withError: true };
     }
-  },
-};
+  };
+
+  return {
+    getUsers,
+    getUserDetails
+  }
+})();
 
 export default githubapiService;
