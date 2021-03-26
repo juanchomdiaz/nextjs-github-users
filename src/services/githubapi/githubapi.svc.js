@@ -60,7 +60,7 @@ const githubapiService = (() => {
         withError: false,
       };
     } catch (error) {
-      console.log(error);
+      //console.log(error);
 
       return {
         users: [],
