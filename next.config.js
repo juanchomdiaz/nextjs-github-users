@@ -1,7 +1,7 @@
 const aws = require('aws-sdk');
 
 let s3 = new aws.S3({
-  apiBaseUrl: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN,
+  apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   proxyBaseUrl: process.env.PROXY_BASE_URL
 });
 
