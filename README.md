@@ -4,7 +4,7 @@ A multilanguage Github Users Browser made with NextJS 10, ReactJs 17, hooks, Con
 
 See it running live in Heroku: https://github-users-browser.herokuapp.com/users
 
-Now using a reverse proxy.
+Now using a reverse proxy. (https://github.com/juanchomdiaz/expressjs-reverse-proxy)
 
 ## How to run?
 
